@@ -1,0 +1,24 @@
+    PUSH 1
+    POP bx
+    PUSH 7
+    CALL FACTORIAL
+    PUSH bx
+    OUT
+    END
+    FACTORIAL :
+        POP ax
+        PUSH ax
+        PUSH bx
+        MUL
+        POP bx
+        PUSH 1
+        PUSH ax
+        SUB
+        POP ax
+        PUSH ax
+        PUSH 1
+        PUSH ax
+        JB label
+        CALL FACTORIAL
+        label :
+        RET

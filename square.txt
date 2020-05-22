@@ -1,0 +1,151 @@
+    PUSH 0
+    PUSH 2
+    PUSH -8
+    POP cx
+    POP bx
+    POP ax
+    PUSH ax
+    PUSH 0
+    JE A=0
+    PUSH bx
+    PUSH 0
+    JE A!=0,B=0
+    PUSH cx
+    PUSH 0
+    JE A!=0,C=0
+    PUSH bx
+    PUSH bx
+    MUL
+    PUSH -4
+    PUSH ax
+    MUL
+    PUSH cx
+    MUL
+    ADD
+    POP dx
+    PUSH 0
+    PUSH dx
+    JB D<0
+    PUSH 0
+    PUSH dx
+    JE D=0
+    PUSH 2
+    OUT
+    PUSH 2
+    PUSH ax
+    MUL
+    POP ax
+    PUSH dx
+    SQRT
+    POP dx
+    PUSH -1
+    PUSH bx
+    MUL
+    POP bx
+    PUSH ax
+    PUSH dx
+    PUSH bx
+    SUB
+    DIV
+    OUT
+    PUSH ax
+    PUSH dx
+    PUSH bx
+    ADD
+    DIV
+    OUT
+    JMP STOP
+     D=0 :
+        PUSH 1
+        OUT
+        PUSH 2
+        PUSH ax
+        MUL
+        PUSH -1
+        PUSH bx
+        MUL
+        DIV
+        OUT
+        JMP STOP
+    D<0 :
+        PUSH 0
+        OUT
+        JMP STOP
+    A!=0,B=0 :
+        PUSH 0
+        PUSH cx
+        JE A!=0B=C=0
+        PUSH 0
+        PUSH cx
+        JA D<0
+        PUSH 2
+        OUT
+        PUSH ax
+        PUSH cx
+        DIV
+        PUSH -1
+        MUL
+        SQRT
+        POP dx
+        PUSH dx
+        OUT
+        PUSH dx
+        PUSH -1
+        MUL
+        OUT
+        JMP STOP
+    A=0 :
+        PUSH 0
+        PUSH cx
+        JE B!=0
+        PUSH 0
+        PUSH bx
+        JE C!=0
+        PUSH bx
+        PUSH cx
+        DIV
+        PUSH -1
+        MUL
+        PUSH 1
+        OUT
+        OUT
+        JMP STOP
+    C!=0 :
+        PUSH 0
+        PUSH cx
+        JE A=0,B=0,C=0
+        PUSH 0
+        OUT
+        JMP STOP
+    B!=0 :
+        PUSH 0
+        PUSH bx
+        JE A=0,B=0,C=0
+        JMP A!=0B=C=0
+    A=0,B=0,C=0 :
+        PUSH 3
+        OUT
+        JMP STOP
+    A!=0B=C=0 :
+        PUSH 1
+        OUT
+        PUSH 0
+        OUT
+        JMP STOP
+    A!=0,C=0 :
+        PUSH 0
+        PUSH bx
+        JE A!=0B=C=0
+        PUSH 2
+        OUT
+        PUSH 0
+        OUT
+        PUSH ax
+        PUSH bx
+        DIV
+        PUSH -1
+        MUL
+        OUT
+        JMP STOP
+    STOP :
+    END
